@@ -12,7 +12,7 @@ class BinaryTree {
 		Node* left;
 		Node* right;
 		Node* root;
-
+		Node(): left(nullptr), right(nullptr), root(nullptr){}
 		Node(const T& v) : value(v), left(nullptr), right(nullptr), root(nullptr) {}
 	};
 
@@ -20,7 +20,8 @@ class BinaryTree {
 	private:
 		Node* PreOrderNode;
 	public:
-		PreorderIterator(Node* root)
+
+        PreorderIterator(Node* root = nullptr)
 		{
 			PreOrderNode = root;
 		}
@@ -117,7 +118,8 @@ class BinaryTree {
 	private:
 		Node* InOrderNode;
 	public:
-		InorderIterator(Node* root)
+	
+		InorderIterator(Node* root = nullptr)
 		{
 			if (!root)
 			{
@@ -220,7 +222,8 @@ class BinaryTree {
 	private:
 		Node* PostOrderNode;
 	public:
-		PostorderIterator(Node* root)
+
+		PostorderIterator(Node* root = nullptr)
 		{
 			if (!root)
 			{
@@ -393,7 +396,7 @@ public:
 				if ((*it) == RootVal)
 				{
 					it->left = new Node();
-					it->left->root = LeftVal;
+					(it->left)->root = LeftVal;
 				}
 			}
 		}
@@ -512,4 +515,3 @@ public:
 		}
 };
 }
-
