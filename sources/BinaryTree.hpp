@@ -40,7 +40,7 @@ class BinaryTree {
 		}
 		bool operator==(const PreorderIterator& other) const
 		{
-			return PreOrderNode == PreOrderNode.ptr;
+			return PreOrderNode == other.PreOrderNode;
 		}
 		PreorderIterator operator++(int)
 		{
@@ -420,6 +420,16 @@ public:
 		}
 		return *this;
 	}
+	
+        auto begin()
+        {
+            return begin_inorder();
+        }
+
+        auto end()
+        {
+            return end_inorder();
+        }
 
 	PreorderIterator begin_preorder()
 	{
@@ -492,7 +502,7 @@ public:
 		return os;
 	}
 
-	bool IsParent(T) 
+	bool IsParent(T RootVal) 
 	{
 		for (auto it = begin_preorder(); it != end_preorder(); ++it) {
 			if ((*it) == RootVal)
