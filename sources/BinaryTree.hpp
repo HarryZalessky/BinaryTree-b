@@ -20,7 +20,7 @@ class BinaryTree {
 	private:
 		Node* PreOrderNode;
 	public:
-ל
+
         PreorderIterator(Node* root = nullptr)
 		{
 			PreOrderNode = root;
