@@ -13,14 +13,14 @@ class BinaryTree {
 		Node* right;
 		Node* root;
 		Node(): left(nullptr), right(nullptr), root(nullptr){}
-		Node(val, rootptl, leftptr, rightprt) : left(leftptr), right(rightptr), root(rootptr), value(val){}
+		Node(const T& v) : value(v), left(nullptr), right(nullptr), root(nullptr) {}
 	};
 
 	class PreorderIterator {
 	private:
 		Node* PreOrderNode;
 	public:
-
+ל
         PreorderIterator(Node* root = nullptr)
 		{
 			PreOrderNode = root;
@@ -31,9 +31,9 @@ class BinaryTree {
 		{
 			return PreOrderNode->value;
 		}
-		T* operator->() const
+		Node* operator->() const
 		{
-			return &(PreOrderNode->value);
+			return &(PreOrderNode);
 		}
 		bool operator!=(const PreorderIterator& other) const
 		{
@@ -138,9 +138,9 @@ class BinaryTree {
 		{
 			return InOrderNode->value;
 		}
-		T* operator->() const
+		Node* operator->() const
 		{
-			return &(InOrderNode->value);
+			return &(InOrderNode);
 		}
 		bool operator!=(const InorderIterator& other) const
 		{
@@ -249,9 +249,9 @@ class BinaryTree {
 		{
 			return PostOrderNode->value;
 		}
-		T* operator->() const
+		Node* operator->() const
 		{
-			return &(PostOrderNode->value);
+			return &(PostOrderNode);
 		}
 		bool operator!=(const PostorderIterator& other) const
 		{
