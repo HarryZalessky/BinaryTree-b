@@ -374,14 +374,14 @@ public:
 		}
 	}
 
-	BinaryTree<T>& add_root(T)
+	BinaryTree<T>& add_root(T v)
 	{
 		if (root == nullptr)
 		{
 			root = new Node();
-			root->value = value;
+			root->value = v;
 		}
-		root->value = value;
+		root->value = v;
 	}
 
 	BinaryTree<T>& add_left(T RootVal, T LeftVal)
