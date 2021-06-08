@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stack>
 using namespace std;
-//using namespace ariel{
+namespace ariel{
 template<typename T>
 class BinaryTree {
 
@@ -36,11 +36,11 @@ class BinaryTree {
 		}
 		bool operator!=(const PreorderIterator& other) const
 		{
-			return ptr != other.ptr;
+			return PreOrderNode != other.PreOrderNode;
 		}
 		bool operator==(const PreorderIterator& other) const
 		{
-			return ptr == other.ptr;
+			return PreOrderNode == PreOrderNode.ptr;
 		}
 		PreorderIterator operator++(int)
 		{
@@ -142,11 +142,11 @@ class BinaryTree {
 		}
 		bool operator!=(const InorderIterator& other) const
 		{
-			return ptr != other.ptr;
+			return InOrderNode != other.InOrderNode;
 		}
 		bool operator==(const InorderIterator& other) const
 		{
-			return ptr == other.ptr;
+			return InOrderNode == other.InOrderNode;
 		}
 		InorderIterator operator++(int)
 		{
@@ -252,11 +252,11 @@ class BinaryTree {
 		}
 		bool operator!=(const PostorderIterator& other) const
 		{
-			return ptr != other.ptr;
+			return PostOrderNode != other.PostOrderNode;
 		}
 		bool operator==(const PostorderIterator& other) const
 		{
-			return ptr == other.ptr;
+			return PostOrderNode == other.PostOrderNode;
 		}
 		PostorderIterator operator++(int)
 		{
@@ -386,7 +386,7 @@ public:
 
 	BinaryTree<T>& add_left(T RootVal, T LeftVal)
 	{
-		if (IsParent(rootVal))
+		if (IsParent(RootVal))
 		{
 			for (auto it = begin_preorder(); it != end_preorder(); ++it)
 			{
@@ -403,9 +403,9 @@ public:
 		}
 		return *this;
 	}
-	BinaryTree<T>& add_right(T rootVal, T RightVal)
+	BinaryTree<T>& add_right(T RootVal, T RightVal)
 	{
-		if (IsParent(rootVal))
+		if (IsParent(RootVal))
 		{
 			for (auto it = begin_preorder(); it != end_preorder(); ++it) {
 				if ((*it) == RootVal) {
@@ -501,3 +501,5 @@ public:
 		return false;
 		}
 };
+}
+
