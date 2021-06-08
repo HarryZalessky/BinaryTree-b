@@ -13,7 +13,7 @@ class BinaryTree {
 		Node* right;
 		Node* root;
 
-		Node(const T& value) : value(value), left(nullptr), right(nullptr), root(nullptr) {}
+		Node(const T& v) : value(v), left(nullptr), right(nullptr), root(nullptr) {}
 	};
 
 	class PreorderIterator {
