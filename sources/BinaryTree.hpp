@@ -25,7 +25,7 @@ class BinaryTree {
 		{
 			PreOrderNode = root;
 		}
-		~PreorderIterator() {}
+		
 
 		T& operator*() const
 		{
@@ -132,7 +132,7 @@ class BinaryTree {
 				InOrderNode = InOrderNode->left;
 			}
 		}
-		~InorderIterator() {}
+		
 
 		T& operator*() const
 		{
@@ -244,7 +244,7 @@ class BinaryTree {
 				}
 			}
 		}
-		~PostorderIterator() {}
+		
 		T& operator*() const
 		{
 			return PostOrderNode->value;
@@ -468,8 +468,9 @@ public:
 		InorderIterator thatIt = Tree.begin_inorder();
 		while (thisIt != this->end_inorder() && thatIt != Tree.end_inorder())
 		{
-			if (thisIt != thatIt)
+			if (thisIt != thatIt){
 				return false;
+				}
 		}
 		return true;
 	}
@@ -479,10 +480,15 @@ public:
 		InorderIterator thatIt = Tree.begin_inorder();
 		while (thisIt != this->end_inorder() && thatIt != Tree.end_inorder())
 		{
-			if (thisIt == thatIt)
+			if (thisIt == thatIt){
 				return false;
+				}
 		}
 		return true;
+	}
+	void operator= (const BinaryTree<T>&  binaryTree)
+	{
+	this.root=binaryTree.root
 	}
 
 	friend std::ostream& operator<<(std::ostream& os, const BinaryTree& binaryTree)
@@ -504,12 +510,20 @@ public:
 		os << endl;
 		return os;
 	}
+	BinaryTree<T>& operator=(const BinaryTree<T>& binaryTree)
+{
+if(this!=binaryTree)
+{
+this.root=binaryTree.root;
+}
+}
 
 	bool IsParent(T RootVal) 
 	{
 		for (auto it = begin_preorder(); it != end_preorder(); ++it) {
-			if ((*it) == RootVal)
+			if ((*it) == RootVal){
 				return true;
+				}
 			}
 		return false;
 		}
