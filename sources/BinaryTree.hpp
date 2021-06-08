@@ -12,7 +12,7 @@ class BinaryTree {
 		Node* left;
 		Node* right;
 		Node* root;
-		Node(): left(nullptr), right(nullptr), root(nullptr){}
+		Node(): left(nullptr), right(nullptr), root(nullptr),value(0){}
 		Node(const T& v) : value(v), left(nullptr), right(nullptr), root(nullptr) {}
 	};
 
@@ -21,19 +21,22 @@ class BinaryTree {
 		Node* PreOrderNode;
 	public:
 
-        PreorderIterator(Node* root = nullptr)
+        PreorderIterator(Node* root= nullptr)
 		{
 			PreOrderNode = root;
 		}
 		
-
+		Node* getNode() 
+		{
+			return PreOrderNode;
+		}
 		T& operator*() const
 		{
 			return PreOrderNode->value;
 		}
-		Node* operator->() const
+		T* operator->() const
 		{
-			return &(PreOrderNode);
+			return &(PreOrderNode->value);
 		}
 		bool operator!=(const PreorderIterator& other) const
 		{
@@ -133,14 +136,17 @@ class BinaryTree {
 			}
 		}
 		
-
+		Node* getNode() 
+		{
+			return InOrderNode;
+		}
 		T& operator*() const
 		{
 			return InOrderNode->value;
 		}
-		Node* operator->() const
+		T* operator->() const
 		{
-			return &(InOrderNode);
+			return &(InOrderNode->value);
 		}
 		bool operator!=(const InorderIterator& other) const
 		{
@@ -244,14 +250,17 @@ class BinaryTree {
 				}
 			}
 		}
-		
+		Node* getNode() 
+		{
+			return PostOrderNode;
+		}
 		T& operator*() const
 		{
 			return PostOrderNode->value;
 		}
-		Node* operator->() const
+		T* operator->() const
 		{
-			return &(PostOrderNode);
+			return &(PostOrderNode->value);
 		}
 		bool operator!=(const PostorderIterator& other) const
 		{
@@ -362,6 +371,10 @@ public:
 			copy(this->root, t.root);
 		}
 	}
+	BinaryTree<T>(BinaryTree<T>&& t)noexcept
+	{	
+	root=t.root;
+	}
 
 	void copy(Node*& root, Node*& otherRoot)
 	{
@@ -370,6 +383,19 @@ public:
 			root = NULL;
 		}
 		else
+		{
+			root = new Node(otherRoot->value);
+			copy(root->left, otherRoot->left);
+			copy(root->right, otherRoot->right);
+		}
+	}
+		void copy(Node*& root,  Node*const& otherRoot)
+	{
+		if (otherRoot == NULL)
+		{
+			root = NULL;
+		}
+		else   
 		{
 			root = new Node(otherRoot->value);
 			copy(root->left, otherRoot->left);
@@ -385,6 +411,7 @@ public:
 			root->value = v;
 		}
 		root->value = v;
+		return *this;
 	}
 
 	BinaryTree<T>& add_left(T RootVal, T LeftVal)
@@ -395,8 +422,8 @@ public:
 			{
 				if ((*it) == RootVal)
 				{
-					it->left = new Node();
-					(it->left)->root = LeftVal;
+					it.getNode()->left = new Node();
+					(it.getNode()->left)->root->value = LeftVal;
 				}
 			}
 		}
@@ -412,8 +439,8 @@ public:
 		{
 			for (auto it = begin_preorder(); it != end_preorder(); ++it) {
 				if ((*it) == RootVal) {
-					it->right = new Node();
-					it->right->root = RightVal;
+					it.getNode()->right = new Node();
+					it.getNode()->right->root->value = RightVal;
 				}
 			}
 		}
@@ -486,10 +513,8 @@ public:
 		}
 		return true;
 	}
-	void operator= (const BinaryTree<T>&  binaryTree)
-	{
-	this.root=binaryTree.root
-	}
+	
+	
 
 	friend std::ostream& operator<<(std::ostream& os, const BinaryTree& binaryTree)
 	{
@@ -510,14 +535,25 @@ public:
 		os << endl;
 		return os;
 	}
-	BinaryTree<T>& operator=(const BinaryTree<T>& binaryTree)
+	// NOLINTNEXTLINE(bugprone-unhandled-self-assignment)
+BinaryTree<T>& operator=(const BinaryTree<T>& binaryTree)
 {
-if(this!=binaryTree)
-{
-this.root=binaryTree.root;
-}
+Node* tmp = new Node();
+this->copy(tmp, binaryTree.root);
+
+delete this->root;
+this->copy(this->root, tmp);
+return *this;
 }
 
+ BinaryTree<T>& operator=(BinaryTree<T>&& binaryTree)noexcept
+{
+if(this!=&binaryTree)
+{
+this->root=binaryTree->root;
+} 
+}
+      
 	bool IsParent(T RootVal) 
 	{
 		for (auto it = begin_preorder(); it != end_preorder(); ++it) {
