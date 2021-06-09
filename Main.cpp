@@ -5,7 +5,7 @@
 #include <stdexcept>
 using namespace std;
 
-#include "BinaryTree.hpp"
+#include "sources/BinaryTree.hpp"
 using namespace ariel;
 
 int main() {
